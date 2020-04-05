@@ -7,8 +7,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   let categories;
-  const host = req.get('host')
-  await fetch(`${host}/api/category`)
+  await fetch(`${process.env.BASE_URL}/api/category`)
     .then(res => res.json())
     .then(data => (categories = data))
     .catch(err => console.log(err));
@@ -27,14 +26,14 @@ router.get("/collection", async (req, res) => {
   let products, categories;
 
   //Call to categoryAPI to fetch all categories
-  await fetch(`${host}/api/category`)
+  await fetch(`${process.env.BASE_URL}/api/category`)
     .then(res => res.json())
     .then(data => (categories = data))
     .catch(err => console.log(err));
 
   if (req.query.sortBy == "all") {
     //Call to productAPI to fetch data of ALL product
-    await fetch(`${host}/api/product`)
+    await fetch(`${process.env.BASE_URL}/api/product`)
       .then(res => res.json())
       .then(data => (products = data))
       .catch(err => console.log(err));
@@ -49,7 +48,7 @@ router.get("/collection", async (req, res) => {
     });
   } else {
     //Call to productAPI to fetch data of provided CATEGORY
-    await fetch(`${host}/api/product/${req.query.sortBy}`)
+    await fetch(`${process.env.BASE_URL}/api/product/${req.query.sortBy}`)
       .then(res => res.json())
       .then(data => (products = data))
       .catch(err => console.log(err));
