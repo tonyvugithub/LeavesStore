@@ -60,7 +60,7 @@ router.get('/modify', admin ,async (req,res) => {
   });
 });
 
-router.post('/modify/:id', [authAdmin, admin], async (req,res) => {
+router.post('/modify/:id', authAdmin, async (req,res) => {
   const obj = {};
   const {title, price, description, quantity} = req.body;
   console.log(req.body);
@@ -82,7 +82,7 @@ router.post('/modify/:id', [authAdmin, admin], async (req,res) => {
   res.redirect(`/clerks/modify`);
 });
 
-router.get('/modify/delete/:id', [authAdmin, admin], async (req, res) => {
+router.get('/modify/delete/:id', authAdmin, async (req, res) => {
   await fetch(`${process.env.BASE_URL}/api/product/${req.params.id}`,{
     method: 'DELETE',
   })
