@@ -7,12 +7,12 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   let products, categories;
-  await fetch('http://localhost:3000/api/product')
+  await fetch(`${process.env.BASE_URL}/api/product`)
     .then(res => res.json())
     .then(data => (products = data))
     .catch(err => console.log(err));
 
-  await fetch('http://localhost:3000/api/category')
+  await fetch(`${process.env.BASE_URL}/api/category`)
     .then(res => res.json())
     .then(data => (categories = data))
     .catch(err => console.log(err));
