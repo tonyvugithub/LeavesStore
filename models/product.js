@@ -19,12 +19,15 @@ const Product = mongoose.model('Products', new mongoose.Schema({
   price: {
     type: Number,
     required: true,
+    min: 0
   },
   category: {
     type: String,
   },
   quantity: {
     type: Number,
+    required: true,
+    min: 0
   },
   isBestSeller: {
     type: Boolean
