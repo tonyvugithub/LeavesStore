@@ -7,12 +7,13 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   let products, categories;
-  await fetch(`${process.env.BASE_URL}/api/product`)
+  const host = req.get('host')
+  await fetch(`${host}/api/product`)
     .then(res => res.json())
     .then(data => (products = data))
     .catch(err => console.log(err));
 
-  await fetch(`${process.env.BASE_URL}/api/category`)
+  await fetch(`${host}/api/category`)
     .then(res => res.json())
     .then(data => (categories = data))
     .catch(err => console.log(err));
