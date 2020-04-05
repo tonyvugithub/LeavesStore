@@ -47,8 +47,7 @@ router.get("/collection", async (req, res) => {
       topPromote: "Buy One, Get One Free",
       userLoggedIn: req.isAuthenticated(),
       userFirstname: req.isAuthenticated() ? req.user.firstname : "",
-      dashboardLink:
-        req.isAuthenticated() && req.user.isSaleClerk ? "/users/clerk/myaccount" : "/users/myaccount",
+      dashboardLink: req.isAuthenticated() && req.user.isSaleClerk ? "/users/clerk/myaccount" : "/users/myaccount",
     });
   } else {
     //Call to productAPI to fetch data of provided CATEGORY
