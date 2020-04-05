@@ -1,0 +1,16 @@
+<div id='signinPopup'>
+  <div id='signinPopup-container'>
+    <p class='title'>Existing Customer</p>
+    <form action='/users/signin' method='POST'>
+      <label for='email'>Email:</label>
+      <input type='email' name='email' id='email' placeholder='Enter your email' value='{{email}}'>
+      <p class='emailErr-signin err'>{{emailError}}</p>
+      <label for='password'>Password:</label>
+      <input type='password' name='password' id='password' placeholder='Enter your password'>
+      <p class='passwordErr-signin err'>{{passwordError}}</p>
+      <button type='submit'>Sign-in</button>
+      <p class='inputErr err'>{{errMessage}}</p>
+    </form>
+    <p class='newCust'>New Customer? <a href='/users/register' class='signup-click'>Click here</a>.</p>
+  </div>
+</div>

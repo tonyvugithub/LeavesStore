@@ -1,0 +1,26 @@
+<section id='promote-banner'>
+  <div>
+    <img src='/img/banner.jpg' alt='promotion banner'>
+  </div>
+</section>
+
+<h2>Collections</h2>
+<section id='product-cat'>
+    {{#each categories}}
+      <a href='/products/collection?sortBy={{this.title}}'>
+        <div class='cat-item' title='{{this.title}}'>
+          <img src={{this.src}} alt='{{this.title}}'>
+          <div class='category-name'>{{this.title}}</div>
+        </div>
+      </a>
+    {{/each}} 
+</section>
+
+<h2>Best Sellers</h2>
+<section id='best-seller'>
+    {{#each bestSellers}}
+      <div class='best-sellers-item' title='{{this.title}}'>
+        <img src={{this.src}} alt='{{this.desc}}'>
+      </div>
+    {{/each}} 
+</section>

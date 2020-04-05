@@ -1,0 +1,33 @@
+<h2 class='product-by-category'>Shop by Category</h2>
+<section id='product-cat'>
+  {{#each categories}}
+  <a href='/products/collection?sortBy={{this.title}}'>
+    <div class='cat-item' title='{{this.title}}'>
+      <img src={{this.src}} alt='{{this.title}}'>
+      <div class='category-name'>{{this.title}}</div>
+    </div>
+  </a>
+  {{/each}}
+</section>
+
+<h3 class='shopAll'><a href='/products/collection?sortBy=all'>Shop All Product</a></h3>
+
+{{#if productList}}
+<h3 class='catTitle {{categoryTitle}}'>{{categoryTitle}} Collection</h3>
+<div id='products-container'>
+  {{#each productList}}
+  <div class='item'>
+    <img src={{this.src}} height="250px" width="250px">
+    <div class='card-info'>
+      <div class='card-title'>{{this.title}}</div>
+      <div class='card-des'>{{this.description}}</div>
+      <div class='card-price'>${{this.price}}</div>
+    </div>
+    <div class='on-top-item'>
+      <button class='add-to-cart-button'>Add to Cart</button>
+    </div>
+  </div>
+  {{/each}}
+</div>
+{{/if}}
+</section>

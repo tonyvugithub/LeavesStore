@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>{{title}}</title>
+  <link rel='stylesheet' href='/css/style.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css'>
+</head>
+
+<body>
+  <header>
+    {{#if topPromote}}
+    <div class='top-promote'>
+      <p>{{topPromote}}</p>
+    </div>
+    {{/if}}
+    <div class='top-nav'>
+      <div id='logo'>
+        <a href='/'>
+          <img src='/img/logo.png' alt='logo'>
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a class='{{#if home_active}}active{{/if}}' href='/'><i class='fas fa-home'></i>Home</a></li>
+          <li><a class='{{#if products_active}}active{{/if}}' href='/products'><i
+                class='fas fa-shopping-basket'></i>Shop</a></li>
+          {{#if userLoggedIn}}
+          <li><a href=''><i class='fas fa-user'></i>{{userFirstname}}</a>
+            <div class='dropdown hide'>
+              <div class='signin'>
+                <a href={{dashboardLink}}><button class='signinBtn'>My Dashboard</button></a>
+                <a href='/users/signout'><button class='signinBtn'>Signout</button></a>
+              </div>
+            </div>
+          </li>
+          {{else}}
+          <li><a href='' class='signin-tab'><i class='fas fa-user'></i>Signin</a>
+            <div class='dropdown hide'>
+              <div class='signin'>
+                <a href='/users/signin'><button class='signinBtn'>Signin</button></a>
+                <p class='new-cust-question'>New Customer? <a href='/users/register' class='register'>Register</a></p>
+              </div>
+            </div>
+          </li>
+          {{/if}}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {{{body}}}
+  </main>
+
+  <footer>
+    <div class='footer-content'>
+      <div id='social-media'>
+        <ul id='social-nav'>
+          <li class='facebook'>
+            <i class='fab fa-facebook-f'></i>
+          </li>
+          <li class='twitter'><i class='fab fa-twitter'></i></li>
+          <li class='pinterest'>
+            <i class='fab fa-pinterest-p'></i>
+          </li>
+          <li class='instagram'>
+            <i class='fab fa-instagram'></i>
+          </li>
+          <li class='youtube'><i class='fab fa-youtube'></i></li>
+        </ul>
+      </div>
+      <form id='subscribe-form' action='https://formspree.io/mgevlvpb' method='POST'>
+        <label for='email-text-box'>Subscribe to our mailing list</label>
+        <input id='email-text-box' type='email' name='email-text-box' placeholder='someone@example.com' maxlength='50'
+          required />
+        <p class='unsubscribe-msg'>*Unsubscribe anytime</p>
+        <input id='submit-button' type='submit' name='submit-button' value='Subscribe' />
+      </form>
+      <div id='copy-right'>
+        <p class='center'>&copy; 2020 Khoi Nguyen VU (Tony)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+<script defer src='/script/script.js' ></script>
+</html>

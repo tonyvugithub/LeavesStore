@@ -1,0 +1,24 @@
+<div id='signupPopup'>
+  <div id='signupPopup-container'>
+    <p class='title'>Create Account</p>
+    <form action='/users/register' method='POST'>
+      <label for='firstname'>First Name:</label>
+      <input type='text' name='firstname' id='firstname' autofocus='true' value='{{firstname}}' placeholder='Enter your first name'>
+      <p class='firstnameErr-signup err'>{{firstnameError}}</p>
+      <label for='lastname'>Last Name:</label>
+      <input type='text' name='lastname' id='lastname' value='{{lastname}}' placeholder='Enter your last name'>
+      <p class='lastnameErr-signup err'>{{lastnameError}}</p>
+      <label for='email'>Email:</label>
+      <input type='email' name='email' id='email' placeholder='someone@example.com' value='{{email}}'>
+      <p class='emailErr-signup err'>{{emailError}}</p>
+      <label for='password'>Password:</label>
+      <input type='password' name='password' id='password' placeholder='At least 6 characters' value='{{password}}'>
+      <p class='passwordErr-signup err'>{{passwordError}}</p>
+      <label for='repassword'>Re-enter Password:</label>
+      <input type='password' name='repassword' id='repassword' placeholder='Type your password again'>
+      <p class='repasswordErr-signup err'>{{repasswordError}}</p>
+      <button type='submit'>Create Your Account</button>
+    </form>
+    <p class='existingCust'>Have an Account? <a href='/users/signin' class='signin-click'>Click Here</a>.</p>
+  </div>
+</div>

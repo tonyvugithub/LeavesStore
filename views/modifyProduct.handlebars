@@ -1,0 +1,31 @@
+<div id='item-modify-container'>
+  {{#each products}}
+  <div class='item-modify'>
+    <img src={{this.src}} height="150px" width="150px">
+    <div class='current-info'>
+      <div class='title' style='font-weight: bold'>Current info</div>
+      <div class='current-title'>{{this.title}}</div>
+      <div class='current-description'>{{this.description}}</div>
+      <div class='current-price'>${{this.price}}</div>
+      <div class='current-quantity'>{{this.quantity}}</div>
+      <div>
+        <button class='id{{this._id}}'>Modify</button>
+        <button><a href='/clerks/modify/delete/{{this._id}}'>Delete</a></button></div>
+        <!--<button class='no-change-{{this._id}}'>No Change</button>-->
+    </div>
+    <div class='new-info new-info-id{{this._id}} hide'>
+      <form action='/clerks/modify/{{this._id}}' method='POST'>
+        <div class='title' style='font-weight: bold'>New info</div>
+        <input name='title' type='text' placeholder='new title'>
+        <input name='description' type='text' placeholder='new description'>
+        <input name='price' type='number' step='0.01' placeholder='new price'>
+        <input name='quantity' type='number' placeholder='new quantity'>
+        <div>
+          <button type='submit'>Change</button>
+          <button type='reset'>Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  {{/each}}
+</div>
