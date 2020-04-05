@@ -53,6 +53,7 @@ router.get('/modify', admin ,async (req,res) => {
   res.render('modifyProduct',{
     products: products,
     title: 'Modify Product',
+    userLoggedIn: req.isAuthenticated(),
     userFirstname: req.isAuthenticated() ? req.user.firstname : "",
     isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
     dashboardLink: req.isAuthenticated() && req.user.isSaleClerk ? "/users/clerk/myaccount" : "/users/myaccount",
