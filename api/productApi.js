@@ -28,9 +28,15 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async(req, res) => {
+  const obj = {};
+  const {title, price, description, quantity} = req.body;
+  if (title!=''){ obj.title = title;}
+  if (price!=''){ obj.price = price;}
+  if (description!=''){ obj.description = description;}
+  if (quantity!=''){ obj.quantity = quantity;}
   const product = await Product.findByIdAndUpdate(
     req.params.id, 
-    req.body,
+    obj,
     {
       new: true
     }

@@ -68,7 +68,6 @@ router.post('/modify/:id', authAdmin, async (req,res) => {
   if (price!=''){ obj.price = price;}
   if (description!=''){ obj.description = description;}
   if (quantity!=''){ obj.quantity = quantity;}
-  console.log(obj);
   await fetch(`${process.env.BASE_URL}/api/product/${req.params.id}`,{
     method: 'PUT',
     headers: {
