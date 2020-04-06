@@ -78,7 +78,7 @@
 
   function validateFileUpload(){
     const fileInput = document.querySelector('#productPhoto');
-    return isImage(fileInput.value);
+    return isImage(fileInput.nodeValue);
   }
   window.onload = setupEventHandlers;
 })();
