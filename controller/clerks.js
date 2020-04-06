@@ -60,35 +60,4 @@ router.get('/modify', admin ,async (req,res) => {
   });
 });
 
-router.post('/modify/:id', authAdmin, async (req,res) => {
-  const obj = {};
-  const {title, price, description, quantity} = req.body;
-  console.log(req.body);
-  if (title!=''){ obj.title = title;}
-  if (price!=''){ obj.price = price;}
-  if (description!=''){ obj.description = description;}
-  if (quantity!=''){ obj.quantity = quantity;}
-  await fetch(`${process.env.BASE_URL}/api/product/${req.params.id}`,{
-    method: 'PUT',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8'
-    },
-    body: JSON.stringify(obj)
-  })
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
-  res.redirect(`/clerks/modify`);
-});
-
-router.get('/modify/delete/:id', authAdmin, async (req, res) => {
-  await fetch(`${process.env.BASE_URL}/api/product/${req.params.id}`,{
-    method: 'DELETE',
-  })
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
-  res.redirect(`/clerks/modify`);
-});
-
 module.exports = router;
