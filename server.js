@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload());
-
+app.use(require('./middlewares/methodOverride'));
 app.use(session({
   genid: (req) => uuidv4(),
   //store: new FileStore(),
