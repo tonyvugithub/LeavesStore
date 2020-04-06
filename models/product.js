@@ -34,16 +34,17 @@ const Product = mongoose.model('Products', new mongoose.Schema({
   }
 }));
 
-function validateProduct(){
+function validateProduct(req){
   const schema = Joi.object({
     title: Joi.string().required(),
     price: Joi.number().required(),
     description: Joi.string().required(),
     category: Joi.string().required(),
-    quantity: Joi.number().required(),
+    quantity: Joi.number().integer().required(),
     isBestSeller: Joi.boolean()
   });
   return schema.validate(req, { abortEarly : false });
 };
 
 exports.Product = Product;
+exports.validateProduct = validateProduct;

@@ -699,6 +699,12 @@ main h3 {
   color: #ac0202;
 }
 
+#addProduct p.err {
+  grid-column: span 2;
+  text-align: right;
+  color: red;
+}
+
 #item-modify-container {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;

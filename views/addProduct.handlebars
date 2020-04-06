@@ -1,24 +1,25 @@
 <p class='addProductTitle'>Add new product</p>
 <form id='addProduct' action='/clerks/add' method='POST' enctype="multipart/form-data">
   <label for='title'>Product name</label>
-  <input id='title' name='title' type='text' autofocus='true'>
+  <input id='title' name='title' type='text' autofocus='true' required='true' value={{productTitle}}>
   <label for='price'>Product price</label>
-  <input id='title' name='price' type='number' step='0.01' min='0.01'>
+  <input id='price' name='price' type='number' step='0.01' min='0.01' required='true' value={{productPrice}}>
   <label for='description'>Product description</label>
-  <input id='description' name='description' type='text'>
+  <input id='description' name='description' type='text' required='true' value={{productDescription}}>
   <label for='category'>Product category</label>
-  <select id='category' name='category' type='text'>
+  <select id='category' name='category' type='text' required='true' value={{productCategory}}>
     <option selected="true">black</option>
     <option>red</option>
     <option>green</option>
     <option>esparticular</option>
   </select>
   <label for='quantity'>Quantity</label>
-  <input id='quantity' name='quantity' type='number' min='0'>
+  <input id='quantity' name='quantity' type='number' min='0' required='true' value={{productQuantity}}>
   <label for='isBestSeller'>Is it best seller?</label>
   <input id='isBestSeller' name='isBestSeller' type='checkbox' value='true'>
   <label for='productPhoto'>Upload photo</label>
-  <input id='productPhoto' name='productPhoto' type='file' accept="image/*">
+  <input id='productPhoto' name='productPhoto' type='file' accept="image/*" required='true'>
+  <p class='fileUploadErr err'>{{fileErr}}</p>
   <button id='addProductSubmit' type='submit' class='submit'>Add Product</button>
   <button type='reset' class='reset'>Reset Entry</button>
 </form>

@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const admin = require('../middlewares/admin');
-const {Product} = require('../models/product');
+const {Product, validateProduct} = require('../models/product');
 const {authUser, authAdmin, forwardAuthenticated} = require('../middlewares/authorize');
-//const path = require('path');
+const isImage = require('is-image');
 const fetch = require('node-fetch');
 
 router.get('/add', admin, (req,res) => {
@@ -21,27 +21,44 @@ router.post('/add', async (req,res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
   }
-  const userID = req.user._id;
-  let file = req.files.productPhoto;
-  const relativePath = `/img/products/${category}/${userID}${req.files.productPhoto.name}`
-  const pathName = `./public${relativePath}`;
-  const isBestSeller = req.body.isBestSeller === 'true' ? true : false;
-  file.mv(pathName, function(err) {
-    if (err)
-      return res.status(500).send(err);
-  });
-  const product = new Product ({
-    title: title,
-    price: price,
-    description: description,
-    category: category,
-    quantity: quantity,
-    src: relativePath,
-    isBestSeller: isBestSeller
-  });
-
-  await product.save();
-  res.redirect('/clerks/add');
+  const { errors } = validateProduct(req.body);
+  if (!errors && isImage(req.files.productPhoto.name)){
+    const userID = req.user._id;
+    let file = req.files.productPhoto;
+    const photoName = userID + Date.now().toString() + req.files.productPhoto.name;
+    const relativePath = `/img/products/${category}/${photoName}`;
+    const pathName = `./public${relativePath}`;
+    const isBestSeller = req.body.isBestSeller === 'true' ? true : false;
+    file.mv(pathName, function(err) {
+      if (err)
+        return res.status(500).send(err);
+    });
+    const product = new Product ({
+      title: title,
+      price: price,
+      description: description,
+      category: category,
+      quantity: quantity,
+      src: relativePath,
+      isBestSeller: isBestSeller
+    });
+    await product.save();
+    res.redirect('/clerks/add');
+  } else {
+    res.render('addProduct',{
+      title: 'Add product',
+      userLoggedIn: req.isAuthenticated(),
+      userFirstname: req.isAuthenticated() ? req.user.firstname : "",
+      isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
+      dashboardLink: req.isAuthenticated() && req.user.isSaleClerk ? "/users/clerk/myaccount" : "/users/myaccount",
+      productTitle: title,
+      productPrice: price,
+      productDescription: description,
+      productCategory: category,
+      productQuantity: quantity,
+      fileErr: 'Only image files allowed'
+    });
+  }
 });
 
 router.get('/modify', admin ,async (req,res) => {

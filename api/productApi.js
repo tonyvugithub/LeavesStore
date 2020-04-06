@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const products = await Product.find().select('_id src title description price quantity').sort('category');
+  const products = await Product.find().sort('category');
   res.send(products);
 });
 
