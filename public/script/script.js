@@ -1,4 +1,5 @@
 (function () {
+  const isImage = require('is-image');
   function setupEventHandlers() {
     const onChangeErrMsg = (msgDiv) => {
       const element = document.querySelector(msgDiv);
@@ -72,6 +73,12 @@
             });
       });*/  
     }
+    document.getElementById('#addProductSubmit').onsubmit = validateFileUpload;  
+  }
+
+  function validateFileUpload(){
+    const fileInput = document.querySelector('#productPhoto');
+    return isImage(fileInput.value);
   }
   window.onload = setupEventHandlers;
 })();
