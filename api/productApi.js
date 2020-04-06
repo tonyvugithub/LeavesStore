@@ -36,13 +36,13 @@ router.put('/:id', async(req, res) => {
     }
   );
   if(!product) return res.status(404).send("Product with the given ID does not exist.");
-  res.send(product);
+  res.redirect(`/clerks/modify`);
 });
 
 router.delete('/:id',async(req, res) => {
   const product = await Product.findByIdAndRemove(req.params.id);
   if(!product) return res.status(404).send("Product with the given ID does not exist.");
-  res.send(product);
+  res.redirect(`/clerks/modify`);
 });
 
 module.exports = router;
