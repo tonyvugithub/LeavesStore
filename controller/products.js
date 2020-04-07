@@ -69,6 +69,18 @@ router.get("/collection", async (req, res) => {
         req.isAuthenticated() && req.user.isSaleClerk ? "/users/clerk/myaccount" : "/users/myaccount",
     });
   }
+
+  router.get('/:id', async (req,res) => {
+    let product;
+    await fetch(`${process.env.BASE_URL}/api/product/info/${req.params.id}`)
+      .then((res) => res.json())
+      .then((data) => product = data)
+      .catch((err) => console.log(err));
+    res.render('productDescription', {
+      product: product,
+      inStock: product.quantity > 0 ? true :  false
+    });
+  });
 });
 
 module.exports = router;

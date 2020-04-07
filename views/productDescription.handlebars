@@ -1,0 +1,15 @@
+<div id='productDescription'>
+    <img src='{{product.src}}' title='{{product.title}}'/>
+    <div id='productInfo'>
+      <p><span class='productDescHeading'>Title:</span>{{product.title}}</p>
+      <p><span class='productDescHeading'>Description:</span>{{product.description}}</p>
+      <p><span class='productDescHeading'>Price:</span>${{product.price}}</p>
+      {{#if inStock}}
+      <p class='inStock'>In Stock</p>
+      <button class='addToCartButton'><a href=''>Add To Cart</a></button>
+      {{else}}
+      <p class='outOfStock'>Out of Stock, Sorry</p>
+      <button class='return'><a href='/products'>Return</a></button>
+      {{/if}}
+    </div>
+</div>

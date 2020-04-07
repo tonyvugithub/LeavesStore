@@ -13,6 +13,11 @@ router.get('/:category', async (req, res) => {
   res.send(products);
 });
 
+router.get('/info/:id', async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  res.send(product);
+});
+
 router.post('/', async (req, res) => {
   const {src,title,description,price,category,isBestSeller} = req.body;
   let product = new Product({ 
