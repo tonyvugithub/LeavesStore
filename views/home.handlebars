@@ -19,8 +19,10 @@
 <h2>Best Sellers</h2>
 <section id='best-seller'>
     {{#each bestSellers}}
+    <a href='/products/{{this._id}}'`>
       <div class='best-sellers-item' title='{{this.title}}'>
         <img src={{this.src}} alt='{{this.desc}}'>
       </div>
+    </a>
     {{/each}} 
 </section>
