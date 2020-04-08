@@ -15,6 +15,7 @@ router.get("/", async (req, res) => {
     products_active: true,
     topPromote: "Free Shipping on Order more than $50",
     userLoggedIn: req.isAuthenticated(),
+    isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
     userFirstname: req.isAuthenticated() ? req.user.firstname : "",
     dashboardLink: req.isAuthenticated() && req.user.isSaleClerk ? "/users/clerk/myaccount" : "/users/myaccount",
     numItems: req.session.cartData && req.session.cartData.length > 0 ? req.session.cartData.length : 0
@@ -64,9 +65,10 @@ router.get("/collection", async (req, res) => {
       categoryTitle: req.params.sortBy,
       topPromote: "Buy One, Get One Free",
       userLoggedIn: req.isAuthenticated(),
+      isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
       userFirstname: req.isAuthenticated() ? req.user.firstname : "",
-      dashboardLink:
-        req.isAuthenticated() && req.user.isSaleClerk ? "/users/clerk/myaccount" : "/users/myaccount",
+      dashboardLink: req.isAuthenticated() && req.user.isSaleClerk ? "/users/clerk/myaccount" : "/users/myaccount",
+      numItems: req.session.cartData && req.session.cartData.length > 0 ? req.session.cartData.length : 0
     });
   }
 

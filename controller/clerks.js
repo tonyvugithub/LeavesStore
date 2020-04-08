@@ -10,6 +10,7 @@ router.get('/add', admin, (req,res) => {
   res.render('addProduct',{
     title: 'Add product',
     userLoggedIn: req.isAuthenticated(),
+    isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
     userFirstname: req.isAuthenticated() ? req.user.firstname : "",
     isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
     dashboardLink: req.isAuthenticated() && req.user.isSaleClerk ? "/users/clerk/myaccount" : "/users/myaccount",
@@ -48,6 +49,7 @@ router.post('/add', async (req,res) => {
     res.render('addProduct',{
       title: 'Add product',
       userLoggedIn: req.isAuthenticated(),
+      isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
       userFirstname: req.isAuthenticated() ? req.user.firstname : "",
       isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
       dashboardLink: req.isAuthenticated() && req.user.isSaleClerk ? "/users/clerk/myaccount" : "/users/myaccount",
@@ -71,6 +73,7 @@ router.get('/modify', admin ,async (req,res) => {
     products: products,
     title: 'Modify Product',
     userLoggedIn: req.isAuthenticated(),
+    isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
     userFirstname: req.isAuthenticated() ? req.user.firstname : "",
     isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
     dashboardLink: req.isAuthenticated() && req.user.isSaleClerk ? "/users/clerk/myaccount" : "/users/myaccount",

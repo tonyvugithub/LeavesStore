@@ -205,7 +205,7 @@ router.get('/cart', authUser, (req, res) => {
 });
 
 //Route to add product to cart
-router.post('/cart', async(req, res) => {
+router.post('/cart', authUser, async(req, res) => {
   const product = (await Product.findById(req.query.productId).select('_id src title description price')).toObject();
   product.orderedQuantity = parseInt(req.body.orderedQuantity);
   if(req.session.cartData){
