@@ -4,15 +4,17 @@
       <p><span class='productDescHeading'>Title:</span>{{product.title}}</p>
       <p><span class='productDescHeading'>Description:</span>{{product.description}}</p>
       <p><span class='productDescHeading'>Price:</span>${{product.price}}</p>
-      {{#if inStock}}
-      <p class='inStock'>In Stock</p>
-      <form action='/users/cart?productId={{product._id}}' method='POST'>
-        <input id='orderedQuantity' name='orderedQuantity' type='number' min='1' value='1'>
-        <button class='addToCartButton'type='submit'>Add To Cart</button>
-      </form>
-      {{else}}
-      <p class='outOfStock'>Out of Stock, Sorry</p>
-      <button class='return'><a href='/products'>Return</a></button>
-      {{/if}}
+      {{#unless isSaleClerk}}
+        {{#if inStock}}
+        <p class='inStock'>In Stock</p>
+        <form action='/users/cart?productId={{product._id}}' method='POST'>
+          <input id='orderedQuantity' name='orderedQuantity' type='number' min='1' value='1'>
+          <button class='addToCartButton'type='submit'>Add To Cart</button>
+        </form>
+        {{else}}
+        <p class='outOfStock'>Out of Stock, Sorry</p>
+        <button class='return'><a href='/products'>Return</a></button>
+        {{/if}}
+      {{/unless}}
     </div>
 </div>
