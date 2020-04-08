@@ -6,7 +6,9 @@ const { User, validateSignup, validateSignin } = require("../models/user");
 const router = express.Router();
 const admin = require('../middlewares/admin');
 const {authUser, authAdmin, forwardAuthenticated} = require('../middlewares/authorize');
+const { Product } = require('../models/product');
 
+//Route to display registration page
 router.get("/register", forwardAuthenticated, (req, res) => {
   res.render("signup", {
     title: "Signup Page",
@@ -14,6 +16,7 @@ router.get("/register", forwardAuthenticated, (req, res) => {
   });
 });
 
+//Route to register user into database
 router.post("/register", async (req, res) => {
     const { firstname, lastname, email, password, repassword } = req.body;
 
@@ -106,6 +109,7 @@ router.post("/register", async (req, res) => {
     }
 });
 
+//Route to display signin page
 router.get("/signin", forwardAuthenticated, (req, res) => {
   console.log(req.isAuthenticated());
   res.render("signin", {
@@ -114,6 +118,7 @@ router.get("/signin", forwardAuthenticated, (req, res) => {
   });
 });
 
+//Route to authenticate user
 router.post("/signin", async (req, res, next) => {
   let emailErrMsg = "";
   let passwordErrMsg = "";
@@ -153,11 +158,13 @@ router.post("/signin", async (req, res, next) => {
   }
 });
 
+//Route to logout user
 router.get('/signout', (req, res) => {
   req.logout();
   res.redirect('/users/signin');
 });
 
+//Route to display regular user dashboard
 router.get('/myaccount/', authUser,(req,res) => {
   res.render('userDashboard',{
     title: 'User Dashboard',
@@ -166,10 +173,12 @@ router.get('/myaccount/', authUser,(req,res) => {
     userLoggedIn: req.isAuthenticated(),
     userFirstname: req.isAuthenticated() ? req.user.firstname : "",
     isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
-    dashboardLink: '/users/myaccount/'
+    dashboardLink: '/users/myaccount/',
+    numItems: req.session.cartData && req.session.cartData.length > 0 ? req.session.cartData.length : 0
   });
 });
 
+//Route to display clerk dashboard
 router.get('/clerk/myaccount/', [authAdmin, admin], async (req,res) => {
   res.render('clerkDashboard',{
     title: 'Inventory Clerk Dashboard',
@@ -182,5 +191,56 @@ router.get('/clerk/myaccount/', [authAdmin, admin], async (req,res) => {
   });
 });
 
-router.post('/cart', )
+//Route to get the original look of the cart
+router.get('/cart', authUser, (req, res) => {
+  res.render('cart',{
+    title: 'Shopping Cart',
+    cartData: req.session.cartData,
+    userLoggedIn: req.isAuthenticated(),
+    userFirstname: req.isAuthenticated() ? req.user.firstname : "",
+    isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
+    dashboardLink: req.isAuthenticated() && req.user.isSaleClerk ? "/users/clerk/myaccount" : "/users/myaccount",
+    numItems: req.session.cartData && req.session.cartData.length > 0 ? req.session.cartData.length : 0
+  });
+});
+
+//Route to add product to cart
+router.post('/cart', async(req, res) => {
+  const product = (await Product.findById(req.query.productId).select('_id src title description price')).toObject();
+  product.orderedQuantity = parseInt(req.body.orderedQuantity);
+  if(req.session.cartData){
+    const index = req.session.cartData.findIndex((e) => e._id == req.query.productId);
+    if(index !== -1){
+      req.session.cartData[index].orderedQuantity += parseInt(req.body.orderedQuantity);  
+    } else {
+      req.session.cartData.push(product);
+    }
+  } else {
+    const cartData = [];
+    cartData.push(product);
+    req.session.cartData = cartData;
+  }
+  res.redirect('/');
+});
+
+//Route to delete the item from cart
+router.delete('/cart/delete', async(req, res) => {
+  const indexFound = req.session.cartData.findIndex((e) => e._id === req.query.productId);
+  console.log(indexFound);
+  req.session.cartData.splice(indexFound,1);
+  res.redirect('/users/cart');
+});
+
+//Route to empty cart
+router.delete('/cart/delete/all', async(req, res) => {
+  req.session.cartData = null;
+  res.redirect('/users/cart');
+});
+
+//Route to update quantity ordered for a specific item
+router.put('/cart/edit', async(req, res) => {
+  const productFound = req.session.cartData.find((e) => e._id === req.query.productId);
+  productFound.orderedQuantity = req.body.orderedQuantity;
+  res.redirect('/users/cart');
+});
 module.exports = router;

@@ -23,7 +23,8 @@ router.get('/', async (req, res) => {
     topPromote: 'Free Shipping on Order more than $50',
     userLoggedIn: req.isAuthenticated(),
     userFirstname: req.isAuthenticated() ? req.user.firstname : "",
-    dashboardLink: req.isAuthenticated() && req.user.isSaleClerk ? '/users/clerk/myaccount' : '/users/myaccount'
+    dashboardLink: req.isAuthenticated() && req.user.isSaleClerk ? '/users/clerk/myaccount' : '/users/myaccount',
+    numItems: req.session.cartData && req.session.cartData.length > 0 ? req.session.cartData.length : 0
   });
 });
 

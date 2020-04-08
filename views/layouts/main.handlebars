@@ -32,11 +32,13 @@
           <li><a href=''><i class='fas fa-user'></i>{{userFirstname}}</a>
             <div class='dropdown hide'>
               <div class='signin'>
+                <a href='/users/cart'><button class='myCartBtn'>My Cart</button>
                 <a href={{dashboardLink}}><button class='signinBtn'>My Dashboard</button></a>
-                <a href='/users/signout'><button class='signinBtn'>Signout</button></a>
+                <a href='/users/signout'><button class='signoutBtn'>Signout</button></a>
               </div>
             </div>
           </li>
+          <li><a href='/users/cart'><i class="fas fa-shopping-cart"></i><span class='numItems'>{{numItems}}<span></a></li>
           {{else}}
           <li><a href='' class='signin-tab'><i class='fas fa-user'></i>Signin</a>
             <div class='dropdown hide'>

@@ -2,6 +2,7 @@ const express = require("express");
 const fetch = require("node-fetch");
 const router = express.Router();
 
+//Route to display product page
 router.get("/", async (req, res) => {
   let categories;
   await fetch(`${process.env.BASE_URL}/api/category`)
@@ -15,13 +16,12 @@ router.get("/", async (req, res) => {
     topPromote: "Free Shipping on Order more than $50",
     userLoggedIn: req.isAuthenticated(),
     userFirstname: req.isAuthenticated() ? req.user.firstname : "",
-    dashboardLink:
-      req.isAuthenticated() && req.user.isSaleClerk
-        ? "/users/clerk/myaccount"
-        : "/users/myaccount",
+    dashboardLink: req.isAuthenticated() && req.user.isSaleClerk ? "/users/clerk/myaccount" : "/users/myaccount",
+    numItems: req.session.cartData && req.session.cartData.length > 0 ? req.session.cartData.length : 0
   });
 });
 
+//Route to display products by category
 router.get("/collection", async (req, res) => {
   let products, categories;
 
@@ -70,6 +70,7 @@ router.get("/collection", async (req, res) => {
     });
   }
 
+  //Route to display single product description
   router.get('/:id', async (req,res) => {
     let product;
     await fetch(`${process.env.BASE_URL}/api/product/info/${req.params.id}`)
