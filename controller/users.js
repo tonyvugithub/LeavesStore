@@ -220,7 +220,7 @@ router.post('/cart', async(req, res) => {
     cartData.push(product);
     req.session.cartData = cartData;
   }
-  res.redirect('/');
+  res.redirect(`/products/${req.query.productId}`);
 });
 
 //Route to delete the item from cart
