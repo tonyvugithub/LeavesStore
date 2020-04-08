@@ -79,7 +79,12 @@ router.get("/collection", async (req, res) => {
       .catch((err) => console.log(err));
     res.render('productDescription', {
       product: product,
-      inStock: product.quantity > 0 ? true :  false
+      inStock: product.quantity > 0 ? true :  false,
+      userLoggedIn: req.isAuthenticated(),
+    userFirstname: req.isAuthenticated() ? req.user.firstname : "",
+    isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
+    dashboardLink: req.isAuthenticated() && req.user.isSaleClerk ? "/users/clerk/myaccount" : "/users/myaccount",
+    numItems: req.session.cartData && req.session.cartData.length > 0 ? req.session.cartData.length : 0
     });
   });
 });
