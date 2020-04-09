@@ -12,6 +12,7 @@ const {
 } = require("../middlewares/authorize");
 const { Product } = require("../models/product");
 const emailGenerator = require("../utility/emailGenerator");
+const resetCart = require('../utility/resetCart');
 //Route to display registration page
 router.get("/register", forwardAuthenticated, (req, res) => {
   res.render("signup", {
@@ -308,14 +309,15 @@ router.get("/cart/checkout", async (req, res) => {
       product.quantity = product.quantity - cartItems[i].orderedQuantity;
       await product.save();
     }
-
+    
+    //Send a confirmation email & render order confirmation message on screen
     const sgMail = require("@sendgrid/mail");
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const msg = {
       to: `${req.user.email}`,
       from: "tonyshop@gmail.com",
       subject: "Order Confirmation",
-      html: `Thank you for your order. Please find below the summary of your order <br/> <hr/> <br/> Order....`,
+      html: emailGenerator(cartItems)
     };
 
     resetCart(req);
@@ -341,18 +343,11 @@ router.get("/cart/checkout", async (req, res) => {
         });
       })
       .catch((err) => res.send(new Error(err)));
-    //Send a confirmation email & render order confirmation message on screen
-  
-    //const emailConfirmation = emailGenerator(cartItems);
-    //
   } else {
     res.redirect("/users/cart");
   }
 });
 
-function resetCart(req) {
-  req.session.cartData.arrOfItems = [];
-  req.session.cartData.total = 0;
-}
+
 
 module.exports = router;
