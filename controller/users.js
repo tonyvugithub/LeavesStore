@@ -215,7 +215,7 @@ router.get("/cart", authUser, (req, res) => {
       req.session.cartData.arrOfItems.length > 0
         ? req.session.cartData.arrOfItems.length
         : 0,
-    total: req.session.cartData ? req.session.cartData.total : 0,
+    total: req.session.cartData ? req.session.cartData.total.toFixed(2) : 0,
   });
 });
 
@@ -258,10 +258,11 @@ router.post("/cart", authUser, async (req, res) => {
 
 //Route to delete the item from cart
 router.delete("/cart/delete", async (req, res) => {
-  const indexFound = req.session.cartData.arrOfItems.findIndex(
+  let cartItems = req.session.cartData.arrOfItems;
+  const indexFound = cartItems.findIndex(
     (e) => e._id === req.query.productId
   );
-  console.log(indexFound);
+  req.session.cartData.total -= cartItems[indexFound].price *  cartItems[indexFound].orderedQuantity;
   req.session.cartData.arrOfItems.splice(indexFound, 1);
   res.redirect("/users/cart");
 });
