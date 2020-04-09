@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
     isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
     userFirstname: req.isAuthenticated() ? req.user.firstname : "",
     dashboardLink: req.isAuthenticated() && req.user.isSaleClerk ? '/users/clerk/myaccount' : '/users/myaccount',
-    numItems: req.session.cartData && req.session.cartData.length > 0 ? req.session.cartData.length : 0
+    numItems: req.session.cartData && req.session.cartData.arrOfItems.length > 0 ? req.session.cartData.arrOfItems.length : 0,
   });
 });
 

@@ -1,7 +1,7 @@
 <div id='shoppingCart'>
   <h2 id='cartTitle'>Shopping Cart</h2>
-  {{#if cartData}}
-    {{#each cartData}}
+  {{#if cartItems}}
+    {{#each cartItems}}
     <div class='cartItem'>
       <a href='/products/{{this._id}}'>
       <img src='{{this.src}}' title='{{this.title}}' width="100px" />
@@ -15,11 +15,15 @@
           <button class='editButton' type='submit'>Edit</button> <br/>
         </form>
         <a href='/users/cart/delete?productId={{this._id}}&_method=DELETE'><button class='removeFromCartButton'>Remove</button></a>
+        <p class='errMsg'>{{this.errMsg}}</p>
       </div>
     </div>
     {{/each}}
+    {{#if cartItems}}
+    <p id='totalDue'><span style='font-weight: bold;'>My Total:</span> ${{total}}</p>
+    {{/if}}
     <div id='cartBtn'>
-      <button id='checkOutBtn'>Check me out!</button>
+      <button id='checkOutBtn'><a href='/users/cart/checkout'>Check me out!</a></button>
       <button id='emptyCartBtn'><a href='/users/cart/delete/all?_method=DELETE'>Empty Cart</a></button>
     </div>
   {{else}}

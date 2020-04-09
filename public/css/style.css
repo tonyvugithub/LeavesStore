@@ -1193,13 +1193,18 @@ main .welcomeMsg button:hover a {
   margin: 10px 0;
 }
 
-#shoppingCart .cartItem .productInfo {
+#shoppingCart .cartItem .cartProductInfo {
   display: -ms-grid;
   display: grid;
 }
 
-#shoppingCart .cartItem .productInfo p span.productDescHeading {
+#shoppingCart .cartItem .cartProductInfo p span.productDescHeading {
   font-weight: bold;
+}
+
+#shoppingCart .cartItem .cartProductInfo .errMsg {
+  color: red;
+  font-style: italic;
 }
 
 #shoppingCart #cartBtn {
@@ -1208,10 +1213,25 @@ main .welcomeMsg button:hover a {
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
+  margin-top: 10px;
+}
+
+#shoppingCart #cartBtn button {
+  padding: 5px 0;
 }
 
 #shoppingCart .cartEmptyMsg {
   color: gray;
   font-style: italic;
+}
+
+#orderConfirmation {
+  text-align: center;
+  margin-top: 40px;
+}
+
+#orderConfirmation p span.email {
+  color: #0b409c;
+  font-weight: bold;
 }
 /*# sourceMappingURL=style.css.map */

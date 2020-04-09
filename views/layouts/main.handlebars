@@ -29,7 +29,7 @@
           <li><a class='{{#if products_active}}active{{/if}}' href='/products'><i
                 class='fas fa-shopping-basket'></i>Shop</a></li>
           {{#if userLoggedIn}}
-          <li><a href=''><i class='fas fa-user'></i>{{userFirstname}}</a>
+          <li><a href=''><i class='fas fa-user'></i>{{#if isSaleClerk}}<i class="fas fa-key"></i>{{/if}}{{userFirstname}}</a>
             <div class='dropdown hide'>
               <div class='signin'>
                 {{#unless isSaleClerk}}
