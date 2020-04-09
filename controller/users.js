@@ -215,7 +215,7 @@ router.get("/cart", authUser, (req, res) => {
       req.session.cartData.arrOfItems.length > 0
         ? req.session.cartData.arrOfItems.length
         : 0,
-    total: req.session.cartData ? req.session.cartData.total.toFixed(2) : 0,
+    total: req.session.cartData ? req.session.cartData.total : 0,
   });
 });
 
