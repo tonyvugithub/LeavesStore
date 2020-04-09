@@ -202,7 +202,7 @@ router.get("/clerk/myaccount/", [authAdmin, admin], async (req, res) => {
 router.get("/cart", authUser, (req, res) => {
   res.render("cart", {
     title: "Shopping Cart",
-    cartItems: req.session.cartData.arrOfItems,
+    cartItems: req.session.cartData ? req.session.cartData.arrOfItems : null,
     userLoggedIn: req.isAuthenticated(),
     userFirstname: req.isAuthenticated() ? req.user.firstname : "",
     isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
@@ -211,7 +211,7 @@ router.get("/cart", authUser, (req, res) => {
         ? "/users/clerk/myaccount"
         : "/users/myaccount",
     numItems:
-      req.session.cartData.arrOfItems &&
+      req.session.cartData &&
       req.session.cartData.arrOfItems.length > 0
         ? req.session.cartData.arrOfItems.length
         : 0,
