@@ -511,8 +511,6 @@ nav ul li a {
 nav ul li a.active, nav ul li a:hover {
   color: #10316b;
   font-weight: bold;
-  border-bottom: 3px solid #ffe867;
-  border-radius: 5px;
 }
 
 nav ul li a i {
