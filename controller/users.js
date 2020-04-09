@@ -49,7 +49,7 @@ router.post("/register", async (req, res) => {
     );
 
     //Hash the password using bcrypt module
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(12);
     user.password = await bcrypt.hash(user.password, salt);
 
     user = await user.save();
@@ -174,7 +174,7 @@ router.get("/myaccount/", authUser, (req, res) => {
   res.render("userDashboard", {
     title: "User Dashboard",
     firstname: req.user.firstname,
-    lastname: req.user.lasttname,
+    lastname: req.user.lastname,
     userLoggedIn: req.isAuthenticated(),
     userFirstname: req.isAuthenticated() ? req.user.firstname : "",
     isSaleClerk: req.isAuthenticated() && req.user.isSaleClerk ? true : false,
