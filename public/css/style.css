@@ -497,6 +497,7 @@ nav ul li {
   padding: 15px 10px;
   position: relative;
   font-size: 1.2em;
+  text-align: right;
 }
 
 nav ul li:hover div {
